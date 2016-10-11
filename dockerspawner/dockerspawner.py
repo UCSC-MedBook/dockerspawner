@@ -73,7 +73,7 @@ class DockerSpawner(Spawner):
     container_id = Unicode()
     container_ip = Unicode('127.0.0.1', config=True)
     container_port = Int(8888, min=1, max=65535, config=True)
-    container_image = Unicode("jupyterhub/singleuser", config=True)
+    container_image = Unicode("medbook/singleuser", config=True)
     container_prefix = Unicode(
         "jupyter",
         config=True,
@@ -221,7 +221,12 @@ class DockerSpawner(Spawner):
 
         """
         binds = self._volumes_to_binds(self.volumes, {})
-        return self._volumes_to_binds(self.read_only_volumes, binds, mode='ro')
+        binds = self._volumes_to_binds(self.read_only_volumes, binds, mode='ro')
+        binds["/home/ubuntu/jupyter/" + self.user.name] = {
+            "bind": "/home/root/work",
+            "ro": False
+        }
+        return binds
 
     _escaped_name = None
     @property
