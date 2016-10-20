@@ -222,8 +222,12 @@ class DockerSpawner(Spawner):
         """
         binds = self._volumes_to_binds(self.volumes, {})
         binds = self._volumes_to_binds(self.read_only_volumes, binds, mode='ro')
-        binds["/home/ubuntu/jupyter/" + self.user.name] = {
-            "bind": "/home/root/work",
+        binds["/data/" + "/private/" + self.user.name] = {
+            "bind": "/home/root/work/private",
+            "ro": False
+        }
+        binds["/data/" + "/public/" + self.user.name] = {
+            "bind": "/home/root/work/public",
             "ro": False
         }
         return binds
