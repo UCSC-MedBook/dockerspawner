@@ -230,6 +230,10 @@ class DockerSpawner(Spawner):
             "bind": "/home/root/work/public",
             "ro": False
         }
+        binds["/data/public"] = {
+            "bind": "/home/root/work/readonly",
+            "ro": True
+        }
         return binds
 
     _escaped_name = None
