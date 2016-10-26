@@ -22,4 +22,9 @@ RUN sh /srv/singleuser/singleuser.sh -h
 
 RUN pip install pymongo
 RUN pip2 install pymongo
+RUN apt-get update
+RUN apt-get install -y build-essential libssl-dev libffi-dev
+RUN apt-get install -y python-dev libxml2-dev libxslt1-dev zlib1g-dev
+
+RUN pip2 install ga4gh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
